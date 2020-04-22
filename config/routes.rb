@@ -3,5 +3,8 @@ Rails.application.routes.draw do
 
 get("/", to: "home#root")
 get("/about", to: "about#root")
+get("/contactus", to: "contactus#root")
+get("/contactUs", to: "contactus#root")
+post("/post_contact", to: "contactus#post_contact")
 
 end
