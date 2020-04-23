@@ -5,3 +5,20 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+Product.delete_all
+NUM_PRODUCT = 1000
+
+NUM_PRODUCT.times do
+  created_at = Faker::Date.backward(days: 365 * 5)
+  Product.create(
+    title: Faker::Commerce.product_name,
+    description: Faker::Commerce.department,
+    price: Faker::Commerce.price,
+    created_at: created_at,
+    updated_at: created_at
+  )
+end
+
+product = Product
+puts Cowsay.say("Generated #{product.count} products", :frogs)

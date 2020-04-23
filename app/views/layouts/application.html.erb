@@ -8,10 +8,10 @@
     <%= stylesheet_link_tag 'application', media: 'all' %>
     <%= javascript_pack_tag 'application' %>
   </head>
-<header>
-  <h2>selim</h2>
-</header>
   <body>
+    <header>
+      <%= render 'shared/navbar' %>
+    </header>
     <%= yield %>
   </body>
 </html>
