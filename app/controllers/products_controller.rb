@@ -21,7 +21,7 @@ class ProductsController < ApplicationController
     id = params[:id]
     @product = Product.find(id)
     if @product.update(params.require(:product).permit(:title, :description, :price))
-      redirect_to question_path(@product)
+      redirect_to product_path(@product)
     else
       render :edit
     end
@@ -29,6 +29,18 @@ class ProductsController < ApplicationController
 
   def index
     @products = Product.all.order("title ASC")
+  end
+
+  def show
+    id = params[:id]
+    @product = Product.find(id)
+end
+
+def destroy
+    id = params[:id]
+    @product = Product.find(id)
+    @product.destroy
+    redirect_to products_path
   end
 
   #increment hit_count
