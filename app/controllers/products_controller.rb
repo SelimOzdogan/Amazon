@@ -13,6 +13,22 @@ class ProductsController < ApplicationController
   end
 
   def edit
+    id = params[:id]
+    @product = Product.find(id)
+  end
+
+  def update
+    id = params[:id]
+    @product = Product.find(id)
+    if @product.update(params.require(:product).permit(:title, :description, :price))
+      redirect_to question_path(@product)
+    else
+      render :edit
+    end
+  end
+
+  def index
+    @products = Product.all.order("title ASC")
   end
 
   #increment hit_count

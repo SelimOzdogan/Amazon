@@ -4,7 +4,7 @@ class Product < ApplicationRecord
 
   validates(:title, presence: true, uniqueness: true)
   validates(
-    :body,
+    :description,
     presence: { message: "must exist" },
     length: { minimum: 10 },
   )
