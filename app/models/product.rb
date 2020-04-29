@@ -20,7 +20,7 @@ class Product < ApplicationRecord
 
   def set_default_price
     self.price ||= 1
-    self.sale_price = self.price < self.sale_price ? self.price:self.price
+    # self.sale_price = self.price < self.sale_price ? self.price:self.price
   end
 
 end
