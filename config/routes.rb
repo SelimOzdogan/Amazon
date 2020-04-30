@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   # get("/product/new",to: "product#new")
 
-  resources :products
-
+  resources :products do
+    resources :reviews, only: [:create, :destroy]
+  end
 end
