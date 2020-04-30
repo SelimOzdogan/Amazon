@@ -24,7 +24,7 @@ gem 'jbuilder', '~> 2.7'
 # gem 'image_processing', '~> 1.2'
 
 gem 'faker'
-
+gem 'bcrypt', '~> 3.1.7'
 gem 'pry'
 gem 'pry-rails'
 gem 'cowsay'

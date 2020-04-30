@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
-has_many(:reviews, dependent: :destroy)
-
+  belongs_to :user
+  has_many(:reviews, dependent: :destroy)
 
   scope(:search, ->(query) { where("title ILIKE ? OR body ILIKE ?", "%#{query}%", "%#{query}%") })
 

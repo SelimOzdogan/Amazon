@@ -8,6 +8,28 @@
 
 Review.delete_all
 Product.delete_all
+User.delete_all
+
+NUM_PRODUCT = 50
+PASSWORD = '1234'
+
+super_user = User.create(
+  first_name: 'Selim',
+  last_name: 'Ozdogan',
+  email: 'selimozdogan@hotmail.com',
+  password: PASSWORD
+)
+
+NUM_PRODUCT.times do
+User.create(
+  first_name: Faker::Name.first_name,
+  last_name: Faker::Name.last_name,
+  email: Faker::Internet.email,
+  password: PASSWORD
+)
+end
+
+users = User.all # array of user records
 
 NUM_PRODUCT = 1000
 
@@ -17,18 +39,21 @@ NUM_PRODUCT.times do
     title: Faker::Commerce.product_name,
     description: Faker::Commerce.department,
     price: Faker::Commerce.price,
+    user: users.sample,
     created_at: created_at,
     updated_at: created_at
   )
   if product.valid?
       product.reviews = rand(0..15).times.map do
-      Review.new(body: [Faker::Hacker.say_something_smart, ""][rand(0..1)], rating: rand(1..5))
+      Review.new(body: [Faker::Hacker.say_something_smart, ""][rand(0..1)], rating: rand(1..5), user: users.sample)
     end
   end
 end
 
 product = Product
 review = Review
+user = User
 
 puts Cowsay.say("Generated #{product.count} products", :frogs)
 puts Cowsay.say("Generated #{review.count} review", :frogs)
+puts Cowsay.say("Generated #{user.count} users", :frogs)
