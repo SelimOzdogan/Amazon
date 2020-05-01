@@ -4,7 +4,9 @@ class ProductsController < ApplicationController
   end
 
   def create
+    # byebug
     @product = Product.new(params.require(:product).permit(:title, :description, :price))
+    @product.user_id = current_user.id
     if @product.save
       redirect_to products_path
     else

@@ -3,6 +3,7 @@ class ReviewsController < ApplicationController
     @product = Product.find(params[:question_id])
     @review = Review.new review_params
     @review.product = @product
+    @review.user_id = current_user.id
 
     if @review.save
       redirect_to product_path(@product)

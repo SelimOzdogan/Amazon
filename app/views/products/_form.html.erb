@@ -1,6 +1,6 @@
 <% if @product.errors.present? %>
 <p>
-    <% @product.errors.full_messages.join(', ') %>
+    <%= @product.errors.full_messages.join(', ') %>
 </p>
 <% end %>
 

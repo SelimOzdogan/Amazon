@@ -1,17 +1,30 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
-        <img src="../../assets/images/brand.png"
-            width="30" height="30" class="d-inline-block align-top" alt="">
+        <img src="../../assets/images/brand.png" width="30" height="30" class="d-inline-block align-top" alt="">
         Amazon
     </a>
     <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link" href="#"><%= link_to 'Home', home_path, class: 'nav-link' %></a>
+                <%= link_to 'Home', home_path, class: 'nav-link' %>
             </li>
             <li class="nav-item">
-                <a class="nav-link" href="#"><%= link_to 'Contact Us', contactus_path, class: 'nav-link' %></a>
+                <%= link_to 'Contact Us', contactus_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+                <%= link_to 'Products', products_path, class: 'nav-link' %>
+            </li>
+            <li class="nav-item">
+                <%= link_to 'New Product', new_product_path, class: 'nav-link' %>
             </li>
         </ul>
     </div>
+    <% if current_user %>
+    <%= link_to "Logout", session_path, method: :delete, class: 'btn btn-danger'%>
+    <div class="username">
+        <%= current_user.first_name %> <%= current_user.last_name %>
+    </div>
+    <% else %>
+    <%= link_to "Log In", new_session_path, class: 'btn btn_succes' %>
+    <% end %>
 </nav>

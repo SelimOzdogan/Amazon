@@ -7,5 +7,5 @@ class Review < ApplicationRecord
     :rating,
     numericality: { greater_than: 0, allow_blank: false },
   )
+ validates :product_id, uniqueness: { scope: :user_id }
 end
- 

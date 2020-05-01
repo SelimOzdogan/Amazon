@@ -13,8 +13,10 @@ Rails.application.routes.draw do
   # post("/post_contact", to: "contactus#post_contact")
 
   # get("/product/new",to: "product#new")
+  resource :session, only: [:new, :create, :destroy]
 
   resources :products do
     resources :reviews, only: [:create, :destroy]
   end
+
 end
