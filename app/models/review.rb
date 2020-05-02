@@ -7,5 +7,5 @@ class Review < ApplicationRecord
     :rating,
     numericality: { greater_than: 0, allow_blank: false },
   )
- validates :product_id, uniqueness: { scope: :user_id }
+ validates :product_id, uniqueness: { scope: :user_id, message: "You have already written a review"}
 end

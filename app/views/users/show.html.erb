@@ -1,0 +1,22 @@
+<div class='shadow-sm p-3 mb-5 bg-white rounded overflow-wrap'>
+    <h1>
+        <%= @user.first_name %> <%= @user.last_name %>
+    </h1>
+    <p class='shadow-none p-3 mb-5 bg-light rounded'><%= @user.email %></p>
+    <div>
+        <%= link_to(
+        "Edit",
+        edit_user_path(@user),
+        class: 'btn btn-info'
+      )
+      %>
+        <%= link_to(
+        "Delete",
+        users_path,
+        method: :destroy,
+        class: 'btn btn-danger',
+        data: { confirm: 'are you sure?' }
+      )
+      %>
+    </div>
+</div>

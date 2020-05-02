@@ -1,8 +1,11 @@
 class ReviewsController < ApplicationController
   def create
-    @product = Product.find(params[:question_id])
+# byebug
+
+    @product = Product.find(params[:product_id])
     @review = Review.new review_params
     @review.product = @product
+    #byebug
     @review.user_id = current_user.id
 
     if @review.save
@@ -18,4 +21,10 @@ class ReviewsController < ApplicationController
     @review.destroy
     redirect_to product_path(@review.product)
   end
+end
+
+private 
+
+def review_params 
+    params.require(:review).permit(:rating, :body)
 end

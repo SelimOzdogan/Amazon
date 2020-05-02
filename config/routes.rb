@@ -12,11 +12,11 @@ Rails.application.routes.draw do
   # get("/contactUs", to: "contactus#root")
   # post("/post_contact", to: "contactus#post_contact")
 
-  # get("/product/new",to: "product#new")
+  #  get("/user/:id/edit",to: "user#edit")
   resource :session, only: [:new, :create, :destroy]
+  resources :users
 
   resources :products do
     resources :reviews, only: [:create, :destroy]
   end
-
 end
