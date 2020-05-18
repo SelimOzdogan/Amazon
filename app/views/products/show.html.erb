@@ -1,70 +1,78 @@
-<div class='shadow-sm p-3 mb-5 bg-white rounded overflow-wrap'>
-    <h1>
-        <span class='badge badge-pill badge-info'>
-            <%= @product.id %>
-        </span>
-        <%= @product.title %>
-    </h1>
-    <p class='shadow-none p-3 mb-5 bg-light rounded'><%= @product.description %></p>
-    <p><small>Added by <%= @product.user.first_name %> <%= @product.user.last_name %></small></p>
+<div class="productShow">
+    <div class='shadow-sm p-3 mb-5 bg-white rounded overflow-wrap'>
+        <h1>
+            <span class='badge badge-pill badge-info'>
+                <%= @product.id %>
+            </span>
+            <%= @product.title %>
+        </h1>
+        <p class='shadow-none p-3 mb-5 bg-light rounded'><%= @product.description %></p>
+        <p><small>Added by <%= @product.user.full_name %> </small></p>
+        <p><small>Visited <%= @product.hit_count %> </small></p>
+        <div>
+            <% if can? :update, @product %>
+            <%= link_to("Edit", edit_product_path(@product),class: 'btn btn-info') %>
+            <% end %>
+
+            <% if can? :destroy, @product %>
+            <%= link_to("Delete",product_path(@product),method: :delete,class: 'btn btn-danger',data: { confirm: 'are you sure?' })%>
+            <% end %>
+        </div>
+    </div>
+
     <div>
-        <%= link_to(
-        "Edit",
-        edit_product_path(@product),
-        class: 'btn btn-info'
-      )
-      %>
-        <%= link_to(
-        "Delete",
-        product_path(@product),
-        method: :delete,
-        class: 'btn btn-danger',
-        data: { confirm: 'are you sure?' }
-      )
-      %>
+        <% if @review.errors.present? %>
+        <p> <%= @review.errors.full_messages.join(',') %> </p>
+        <% end %>
     </div>
-</div>
-
-<div>
-    <% if @review.errors.present? %>
-    <p> <%= @review.errors.full_messages.join(',') %> </p>
-    <% end %>
-</div>
-<%# byebug %>
-<div class="form">
-    <%= form_for [@product, @review] do |f| %>
-    <div class="form-group">
-        <%= f.label :rating %>
-        <%= f.text_field :rating, class: 'form-control' %>
-    </div>
-    <div class="form-group">
-        <%= f.label :body %>
-        <%= f.text_area :body, class: 'form-control' %>
-    </div>
-    <%= f.submit 'Add Review', class: 'btn btn-primary' %>
-    <% end %>
-</div>
-
-<div class="review">
-    <% @reviews.each do |review| %>
-    <div class="card" style="margin: 0;">
-        <div class="card-header"><%= review.rating %></div>
-        <div class="card-body text-dark">
-            <p class="card-text"><%= review.body %></p>
+    <div class="form">
+        <%= form_for [@product, @review] do |f| %>
+        <div class="form-group">
+            <%= f.label :rating %>
+            <%= f.text_field :rating, class: 'form-control' %>
         </div>
-        <p><small>Added by <%= @product.user.first_name %> <%= @product.user.last_name %></small></p>
-
-        <div class="delete_btn">
-            <%= link_to(
-                "Delete",
-                product_review_path(@product, review),
-                method: :delete,
-                data: {
-                    confirm: "Are you sure?"
-                },
-                class: 'btn-primary'
-            ) %>
+        <div class="form-group">
+            <%= f.label :body %>
+            <%= f.text_area :body, class: 'form-control' %>
         </div>
+        <%= f.submit 'Add Review', class: 'btn btn-primary' %>
+        <% end %>
     </div>
-    <% end %>
+
+    <div class="review">
+        <% @reviews.each do |review| %>
+        <div class="card" style="margin: 0;">
+            <div class="card-header"><%= review.rating %></div>
+            <div class="card-body text-dark">
+                <p class="card-text"><%= review.body %></p>
+            </div>
+            <p><small>Added by <%= review.user.full_name %></small></p>
+
+            <%= link_to "#{review.hidden ? 'Show' : 'Hide' }", toggle_hidden_path(review), method: :patch %>
+            <% if user_signed_in?  && current_user != review.user %>
+            <% like = current_user.likes.find_by_review_id(review) %>
+            <% if like %>
+            <%= link_to 'Unlike', like_path(like), method: :delete %>
+            <% else %>
+            <%= link_to 'Like', review_likes_path(review), method: :post %>
+            <% end %>
+            <% end %>
+            (<%= pluralize review.likes.count, 'like'%>)
+
+            <% if can? :destroy, review %>
+            <div class="delete_btn">
+                <%= link_to(
+                    "Delete",
+                    product_reviews_path(@product, review),
+                    method: :delete,
+                    data: {
+                        confirm: "Are you sure?"
+                    },
+                    class: 'btn btn-outline-primary'
+                ) %>
+            </div>
+            <% end %>
+        </div>
+        <% end %>
+    </div>
 </div>

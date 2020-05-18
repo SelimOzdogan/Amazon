@@ -1,5 +1,6 @@
 <div class="row no-gutters">
-    <% @products.each do |product| %>
+    <% @favorites.each do |favorite| %>
+    <% product =  favorite.product %>
     <div class="productCart col-sm-5 col-md-4 col-md-3 col-lg-2 glutter shadow-lg p-3 mb-5 bg-white">
         <%= link_to product do %>
         <img src="https://www.festivalclaca.cat/pics/b/21/216148_watch-png.png" class="imageList" />
@@ -19,22 +20,19 @@
             <% if user_signed_in?  && current_user != product.user %>
             <% favorite = current_user.favorites.find_by_product_id(product) %>
             <% if favorite %>
+
+            <%= link_to product_favorite_path(product,favorite), method: :delete do %>
+            <%= image_tag "favorite.svg", class:"favorite" %>
+            <% end %>
+            
+            <% else %>
             
             <%= link_to product_favorites_path(product), method: :post do %>
             <%= image_tag "unfavorite.svg", class:"favorite" %>
             <% end %>
             
-            <% else %>
-            
-            <%= link_to favorite_path(favorite), method: :delete do %>
-            <%= image_tag "favorite.svg", class:"favorite" %>
-            <% end %>
-
             <% end %>
             <% end %>
-
-
-
 
         </div>
         <% end %>

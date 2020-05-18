@@ -1,3 +1,43 @@
 // Place all the styles related to the product controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: https://sass-lang.com/
+.imageList {
+    height: auto;
+    max-width: 250px;
+}
+
+.titleList {
+}
+
+.titleList:hover {
+    // background-color: #b8c6db;
+    // background-image: linear-gradient(315deg, #f5f7fa 0%, silver 74%);
+}
+
+.priceList {
+}
+.oldpriceList {
+    font-size: 14px;
+    text-decoration: solid line-through red;
+}
+.currentpriceList {
+    font-size: 24px;
+}
+
+.descriptionList {
+}
+.productShow {
+    margin: 20px;
+}
+.review {
+    margin-top: 20px;
+}
+.productCart {
+    margin: 1vw;
+    border-radius: 1.5rem;
+}
+
+.favorite {
+    width: 48px;
+    height: 48px;
+}

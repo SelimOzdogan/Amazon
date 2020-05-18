@@ -1,10 +1,10 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <a class="navbar-brand" href="#">
-        <img src="../../assets/images/brand.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <%= image_tag "brand.png", class:"brand d-inline-block align-top" %> 
         Amazon
     </a>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
+    <div class="navbar" id="navbarNav" >
+        <ul class="navbar-nav" style="display: flex; flex-direction: row; justify-content: space-around!important;">
             <li class="nav-item">
                 <%= link_to 'Home', home_path, class: 'nav-link' %>
             </li>

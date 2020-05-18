@@ -3,7 +3,6 @@ class ContactusController < ApplicationController
   end
 
   def post_contact
-    #byebug
     @full_name = params[:full_name]
     @email = params[:email]
     @message = params[:message]

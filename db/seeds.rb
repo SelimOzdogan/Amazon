@@ -6,11 +6,12 @@
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
 
+Like.delete_all
 Review.delete_all
 Product.delete_all
 User.delete_all
 
-NUM_PRODUCT = 99
+NUM_PRODUCT = 4
 PASSWORD = "1234"
 
 super_user = User.create(
@@ -18,6 +19,7 @@ super_user = User.create(
   last_name: "Ozdogan",
   email: "selimozdogan@hotmail.com",
   password: PASSWORD,
+  isadmin: true,
 )
 
 NUM_PRODUCT.times do
@@ -26,35 +28,48 @@ NUM_PRODUCT.times do
     last_name: Faker::Name.last_name,
     email: Faker::Internet.email,
     password: PASSWORD,
+    isadmin: false,
   )
 end
 
 users = User.all # array of user records
 
-NUM_PRODUCT = 1000
+NUM_PRODUCT = 10
 
 NUM_PRODUCT.times do
   created_at = Faker::Date.backward(days: 365 * 5)
   product = Product.create(
     title: Faker::Commerce.product_name,
-    description: Faker::Commerce.department,
+    description: Faker::Hacker.say_something_smart,
     price: Faker::Commerce.price,
     user: users.sample,
     created_at: created_at,
     updated_at: created_at,
   )
   if product.valid?
-    rand(0..15).times.map do
-      review = Review.new(body: [Faker::Hacker.say_something_smart, ""][rand(0..1)], rating: rand(1..5), user: users.sample, product: product)
+    rand(0..3).times.map do
+      review = Review.new(
+        body: [Faker::Hacker.say_something_smart, ""][rand(0..1)],
+        rating: rand(1..5),
+        user: users.sample,
+        product: product,
+        hidden: [true, false][rand(0..1)],
+      )
       review.save
     end
   end
 end
+reviews = Review.all # array of user records
 
-product = Product
-review = Review
-user = User
+reviews.count.times.map do
+  like = Like.new(
+    review: reviews.sample,
+    user: users.sample,
+  )
+  like.save
+end
 
-puts Cowsay.say("Generated #{product.count} products", :frogs)
-puts Cowsay.say("Generated #{review.count} review", :frogs)
-puts Cowsay.say("Generated #{user.count} users", :frogs)
+puts Cowsay.say("Generated #{Product.count} products", :frogs)
+puts Cowsay.say("Generated #{Review.count} review", :frogs)
+puts Cowsay.say("Generated #{User.count} users", :frogs)
+puts Cowsay.say("Generated #{Like.count} likes", :frogs)
