@@ -20,16 +20,16 @@
             <% favorite = current_user.favorites.find_by_product_id(product) %>
             <% if favorite %>
             
-            <%= link_to product_favorites_path(product), method: :post do %>
-            <%= image_tag "unfavorite.svg", class:"favorite" %>
+            <%= link_to product_favorite_path(product,favorite), method: :delete do %>
+            <%= image_tag "favorite.svg", class:"favorite" %>
             <% end %>
             
             <% else %>
             
-            <%= link_to favorite_path(favorite), method: :delete do %>
-            <%= image_tag "favorite.svg", class:"favorite" %>
+            <%= link_to product_favorites_path(product), method: :post do %>
+            <%= image_tag "unfavorite.svg", class:"favorite" %>
             <% end %>
-
+            
             <% end %>
             <% end %>
 

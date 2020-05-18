@@ -19,9 +19,9 @@ class FavoritesController < ApplicationController
     favorite = Favorite.find params[:id]
     if can? :destroy, favorite
       favorite.destroy
-      redirect_to products_path, notice: "Favorite removed"
+       redirect_to request.referer, notice: "Favorite removed"
     else
-      redirect_to products_path, alert: "can't remove Favorites"
+      redirect_to request.referer, alert: "can't remove Favorites"
     end
   end
 end
